@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./"
   },
   "include": ["src", "snap.config.ts"]
 }
