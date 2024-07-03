@@ -1,36 +1,40 @@
-const deepmerge = require('deepmerge');
-
-const baseConfig = require('../../../../jest.config.base');
-
-module.exports = deepmerge(baseConfig, {
+module.exports = {
   preset: '@metamask/snaps-jest',
 
   // Since `@metamask/snaps-jest` runs in the browser, we can't collect
   // coverage information.
   collectCoverage: false,
 
-  // This is required for the tests to run inside the `MetaMask/snaps`
-  // repository. You don't need this in your own project.
-  moduleNameMapper: {
-    '^@metamask/(.+)/production/jsx-runtime': [
-      '<rootDir>/../../../$1/src/jsx/production/jsx-runtime',
-      '<rootDir>/../../../../node_modules/@metamask/$1/jsx/production/jsx-runtime',
-      '<rootDir>/node_modules/@metamask/$1/jsx/production/jsx-runtime',
-    ],
-    '^@metamask/(.+)/jsx': [
-      '<rootDir>/../../../$1/src/jsx',
-      '<rootDir>/../../../../node_modules/@metamask/$1/jsx',
-      '<rootDir>/node_modules/@metamask/$1/jsx',
-    ],
-    '^@metamask/(.+)/node$': [
-      '<rootDir>/../../../$1/src/node',
-      '<rootDir>/../../../../node_modules/@metamask/$1/node',
-      '<rootDir>/node_modules/@metamask/$1/node',
-    ],
-    '^@metamask/(.+)$': [
-      '<rootDir>/../../../$1/src',
-      '<rootDir>/../../../../node_modules/@metamask/$1',
-      '<rootDir>/node_modules/@metamask/$1',
+  // "resetMocks" resets all mocks, including mocked modules, to jest.fn(),
+  // between each test case.
+  resetMocks: true,
+
+  // "restoreMocks" restores all mocks created using jest.spyOn to their
+  // original implementations, between each test. It does not affect mocked
+  // modules.
+  restoreMocks: true,
+
+  // A map from regular expressions to paths to transformers
+  transform: {
+    '^.+\\.(t|j)sx?$': [
+      '@swc/jest',
+      {
+        jsc: {
+          target: 'es2022',
+          parser: {
+            syntax: 'typescript',
+            tsx: true,
+          },
+          transform: {
+            react: {
+              runtime: 'automatic',
+              importSource: '@metamask/snaps-sdk',
+              useBuiltins: true,
+            },
+          },
+        },
+        sourceMaps: false,
+      },
     ],
   },
-});
+};
