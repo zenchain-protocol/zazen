@@ -3,8 +3,8 @@ import {
   type OnRpcRequestHandler,
 } from '@metamask/snaps-sdk';
 
-import type { BaseParams, SetStateParams } from './types';
-import { clearState, getState, setState } from './utils';
+import type { SetStateParams } from './types';
+import { getState, setState, clearState } from './utils';
 
 /**
  * Handle incoming JSON-RPC requests from the dapp, sent through the
@@ -19,9 +19,7 @@ import { clearState, getState, setState } from './utils';
  * extension's local storage, so the next `getState` request will return the
  * default state.
  *
- * Each of the methods also takes an `encrypted` parameter.
- * This parameter can be used to choose between using encrypted or unencrypted storage.
- * Encrypted storage requires MetaMask to be unlocked, unencrypted storage does not.
+ * Each of the methods alway use encrypted storage.
  *
  * @param params - The request parameters.
  * @param params.request - The JSON-RPC request object.
@@ -34,21 +32,32 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
   switch (request.method) {
     case 'setState': {
       const params = request.params as SetStateParams;
+      const currentState = await getState(true);
 
-      if (params.items) {
-        await setState({ items: params.items }, params.encrypted);
-      }
+      const newState = {
+        ...currentState,
+        staking: {
+          ...currentState.staking,
+          nodeCloudAccessKeys: {
+            ...currentState.staking?.nodeCloudAccessKeys,
+            onFinality: {
+              accessKey: params.staking.nodeCloudAccessKeys.onFinality.accessKey,
+              secretKey: params.staking.nodeCloudAccessKeys.onFinality.secretKey,
+            },
+          },
+        },
+      };
+
+      await setState(newState, true);
       return true;
     }
 
     case 'getState': {
-      const params = request.params as BaseParams;
-      return await getState(params?.encrypted);
+      return await getState(true);
     }
 
     case 'clearState': {
-      const params = request.params as BaseParams;
-      await clearState(params?.encrypted);
+      await clearState(true);
       return true;
     }
 

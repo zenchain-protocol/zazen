@@ -1,15 +1,25 @@
 import { ManageStateOperation } from '@metamask/snaps-sdk';
 
 export type State = {
-  items: string[];
+  staking: {
+    nodeCloudAccessKeys: {
+      onFinality: {
+        accessKey: string;
+        secretKey: string;
+      };
+    };
+  };
 };
 
-/**
- * The default state of the snap. This is returned by the {@link getState}
- * function if the state has not been set yet.
- */
-const DEFAULT_STATE = {
-  items: [],
+const DEFAULT_STATE: State = {
+  staking: {
+    nodeCloudAccessKeys: {
+      onFinality: {
+        accessKey: '',
+        secretKey: '',
+      },
+    },
+  },
 };
 
 /**
@@ -18,28 +28,19 @@ const DEFAULT_STATE = {
  *
  * This uses the `snap_manageState` JSON-RPC method to get the state.
  *
- * @param encrypted - An optional flag to indicate whether to use encrypted storage or not.
+ * @param encrypted - An optional flag to indicate whether to use encrypted storage or not, defaults to true.
  * @returns The current state of the snap.
  * @see https://docs.metamask.io/snaps/reference/rpc-api/#snap_managestate
  */
-export async function getState(encrypted?: boolean): Promise<State> {
+export async function getState(encrypted: boolean = true): Promise<State> {
   const state = await snap.request({
     method: 'snap_manageState',
-
     params: {
-      // For this particular example, we use the `ManageStateOperation.GetState`
-      // enum value, but you can also use the string value `'get'` instead.
       operation: ManageStateOperation.GetState,
-
-      // By default all state is encrypted, but you can choose to not encrypt it.
-      // To do this you may set this flag to false.
-      // This will use a separate unencrypted storage from the encrypted state.
       encrypted,
     },
   });
 
-  // If the snap does not have state, `state` will be `null`. Instead, we return
-  // the default state.
   return (state as State | null) ?? DEFAULT_STATE;
 }
 
@@ -51,25 +52,15 @@ export async function getState(encrypted?: boolean): Promise<State> {
  * browser.
  *
  * @param newState - The new state of the snap.
- * @param encrypted - An optional flag to indicate whether to use encrypted
- * storage or not. Unencrypted storage does not require the user to unlock
- * MetaMask in order to access it, but it should not be used for sensitive data.
- * Defaults to true.
+ * @param encrypted - An optional flag to indicate whether to use encrypted storage or not, defaults to true.
  * @see https://docs.metamask.io/snaps/reference/rpc-api/#snap_managestate
  */
-export async function setState(newState: State, encrypted?: boolean) {
+export async function setState(newState: State, encrypted: boolean = true) {
   await snap.request({
     method: 'snap_manageState',
-
     params: {
-      // For this particular example, we use the `ManageStateOperation.UpdateState`
-      // enum value, but you can also use the string value `'update'` instead.
       operation: ManageStateOperation.UpdateState,
       newState,
-
-      // By default all state is encrypted, but you can choose to not encrypt it.
-      // To do this you may set this flag to false.
-      // This will use a separate unencrypted storage from the encrypted state.
       encrypted,
     },
   });
@@ -81,21 +72,14 @@ export async function setState(newState: State, encrypted?: boolean) {
  *
  * This uses the `snap_manageState` JSON-RPC method to clear the state.
  *
- * @param encrypted - An optional flag to indicate whether to use encrypted storage or not.
+ * @param encrypted - An optional flag to indicate whether to use encrypted storage or not, defaults to true.
  * @see https://docs.metamask.io/snaps/reference/rpc-api/#snap_managestate
  */
-export async function clearState(encrypted?: boolean) {
+export async function clearState(encrypted: boolean = true) {
   await snap.request({
     method: 'snap_manageState',
-
-    // For this particular example, we use the `ManageStateOperation.ClearState`
-    // enum value, but you can also use the string value `'clear'` instead.
     params: {
       operation: ManageStateOperation.ClearState,
-
-      // By default all state is encrypted, but you can choose to not encrypt it.
-      // To do this you may set this flag to false.
-      // This will use a separate unencrypted storage from the encrypted state.
       encrypted,
     },
   });

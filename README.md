@@ -24,16 +24,23 @@ The state is stored in the snap using the following structure:
 
 ```ts
 type State = {
-  items: string[];
+  staking: {
+    nodeCloudAccessKeys: {
+      onFinality: {
+        accessKey: string;
+        secretKey: string;
+      };
+    };
+  };
 };
 ```
 
 This snap exposes an `onRpcRequest` handler, which supports the following JSON-RPC methods:
 
-- `setState` - Set the state to the provided params. This assumes the new state is an object using the above structure, but for simplicity, this is not actually validated within the snap.
-- `getState` - Get the state from the snap. This returns the current state if one is set, or a default state otherwise.
-- `clearState` - Reset the state to the default state.
+- `setState` - Set the state to the provided parameters. This assumes the new state is an object using the above structure. The state is always stored encrypted.
+- `getState` - Get the state from the snap. This returns the current state if one is set, or a default state otherwise. The method always retrieves state from the encrypted store.
+- `clearState` - Reset the state to the default state. The method always retrieves state from the encrypted store.
 
-Each of the methods also takes an `encrypted` parameter. This parameter can be used to choose between using encrypted or unencrypted storage. Encrypted storage requires MetaMask to be unlocked, unencrypted storage does not.
+Interacting with encrypted storage requires MetaMask to be unlocked. 
 
 For more information, you can refer to [the end-to-end tests](./src/index.test.ts).

@@ -24,54 +24,35 @@ describe('onRpcRequest', () => {
     it('sets the state to the params', async () => {
       const { request } = await installSnap();
 
-      expect(
-        await request({
-          method: 'setState',
-          params: {
-            items: ['foo'],
+      const params = {
+        method: 'setState',
+        params: {
+          staking: {
+            nodeCloudAccessKeys: {
+              onFinality: {
+                accessKey: 'fooAccessKey',
+                secretKey: 'fooSecretKey',
+              },
+            },
           },
-        }),
-      ).toRespondWith(true);
+        },
+      };
 
-      expect(
-        await request({
-          method: 'getState',
-        }),
-      ).toRespondWith({
-        items: ['foo'],
-      });
-    });
+      expect(await request(params)).toRespondWith(true);
 
-    it('sets the unencrypted state to the params', async () => {
-      const { request } = await installSnap();
-
-      expect(
-        await request({
-          method: 'setState',
-          params: {
-            items: ['foo'],
-            encrypted: false,
-          },
-        }),
-      ).toRespondWith(true);
-
-      expect(
-        await request({
-          method: 'getState',
-        }),
-      ).toRespondWith({
-        items: [],
+      const state = await request({
+        method: 'getState',
       });
 
-      expect(
-        await request({
-          method: 'getState',
-          params: {
-            encrypted: false,
+      expect(state).toRespondWith({
+        staking: {
+          nodeCloudAccessKeys: {
+            onFinality: {
+              accessKey: 'fooAccessKey',
+              secretKey: 'fooSecretKey',
+            },
           },
-        }),
-      ).toRespondWith({
-        items: ['foo'],
+        },
       });
     });
   });
@@ -85,47 +66,49 @@ describe('onRpcRequest', () => {
       });
 
       expect(response).toRespondWith({
-        items: [],
+        staking: {
+          nodeCloudAccessKeys: {
+            onFinality: {
+              accessKey: '',
+              secretKey: '',
+            },
+          },
+        },
       });
     });
 
     it('returns the state', async () => {
       const { request } = await installSnap();
 
-      await request({
+      const setStateParams = {
         method: 'setState',
         params: {
-          items: ['foo'],
-        },
-      });
-
-      const response = await request({
-        method: 'getState',
-      });
-
-      expect(response).toRespondWith({
-        items: ['foo'],
-      });
-    });
-
-    it('returns the unencrypted state', async () => {
-      const { request } = await installSnap({
-        options: {
-          unencryptedState: {
-            items: ['foo'],
+          staking: {
+            nodeCloudAccessKeys: {
+              onFinality: {
+                accessKey: 'fooAccessKey',
+                secretKey: 'fooSecretKey',
+              },
+            },
           },
         },
-      });
+      };
+
+      await request(setStateParams);
 
       const response = await request({
         method: 'getState',
-        params: {
-          encrypted: false,
-        },
       });
 
       expect(response).toRespondWith({
-        items: ['foo'],
+        staking: {
+          nodeCloudAccessKeys: {
+            onFinality: {
+              accessKey: 'fooAccessKey',
+              secretKey: 'fooSecretKey',
+            },
+          },
+        },
       });
     });
   });
@@ -137,7 +120,14 @@ describe('onRpcRequest', () => {
       await request({
         method: 'setState',
         params: {
-          items: ['foo'],
+          staking: {
+            nodeCloudAccessKeys: {
+              onFinality: {
+                accessKey: 'fooAccessKey',
+                secretKey: 'fooSecretKey',
+              },
+            },
+          },
         },
       });
 
@@ -152,39 +142,14 @@ describe('onRpcRequest', () => {
           method: 'getState',
         }),
       ).toRespondWith({
-        items: [],
-      });
-    });
-
-    it('clears the unencrypted state', async () => {
-      const { request } = await installSnap();
-
-      await request({
-        method: 'setState',
-        params: {
-          items: ['foo'],
-          encrypted: false,
+        staking: {
+          nodeCloudAccessKeys: {
+            onFinality: {
+              accessKey: '',
+              secretKey: '',
+            },
+          },
         },
-      });
-
-      expect(
-        await request({
-          method: 'clearState',
-          params: {
-            encrypted: false,
-          },
-        }),
-      ).toRespondWith(true);
-
-      expect(
-        await request({
-          method: 'getState',
-          params: {
-            encrypted: false,
-          },
-        }),
-      ).toRespondWith({
-        items: [],
       });
     });
   });
