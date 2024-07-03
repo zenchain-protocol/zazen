@@ -1,5 +1,5 @@
 {
-  "version": "2.2.2",
+  "version": "0.0.1",
   "description": "Zenchain snap for securely storing validator cloud access keys within Metamask.",
   "proposedName": "Zazen",
   "repository": {
