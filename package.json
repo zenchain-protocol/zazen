@@ -1,10 +1,10 @@
 {
   "name": "@zenchain/zazen",
-  "version": "2.2.2",
+  "version": "0.0.1",
   "description": "Zenchain snap for securely storing validator cloud access keys within Metamask.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/snaps.git"
+    "url": "https://github.com/zenchain-protocol/zazen.git"
   },
   "license": "MIT",
   "sideEffects": false,
