@@ -11,7 +11,7 @@
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
-        "iconPath": "images/favicon.ico",
+        "iconPath": "images/icon.svg",
         "packageName": "@zenchain/zazen",
         "registry": "https://registry.npmjs.org/"
       }
