@@ -41,6 +41,6 @@ This snap exposes an `onRpcRequest` handler, which supports the following JSON-R
 - `getState` - Get the state from the snap. This returns the current state if one is set, or a default state otherwise. The method always retrieves state from the encrypted store.
 - `clearState` - Reset the state to the default state. The method always retrieves state from the encrypted store.
 
-Interacting with encrypted storage requires MetaMask to be unlocked. 
+Interacting with encrypted storage requires MetaMask to be unlocked.
 
 For more information, you can refer to [the end-to-end tests](./src/index.test.ts).
