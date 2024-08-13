@@ -101,7 +101,7 @@ You can also build and run this snap locally using Docker.
 2. **Run the Docker container**
 
    ```sh
-   docker run -d -p 8081:8081 zazen-snap
+   docker run -d -p 8014:8014 zazen-snap
    ```
 
 This command will run the container and map port `8081` of the container to port `8081` of your host machine, allowing you to access the snap locally for testing.
