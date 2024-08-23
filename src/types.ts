@@ -9,6 +9,7 @@ export type SetStateParams = {
       onFinality: {
         accessKey: string;
         secretKey: string;
+        workspaceId: string;
       };
     };
   };

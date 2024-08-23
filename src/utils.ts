@@ -6,6 +6,7 @@ export type State = {
       onFinality: {
         accessKey: string;
         secretKey: string;
+        workspaceId: string;
       };
     };
   };
@@ -17,6 +18,7 @@ const DEFAULT_STATE: State = {
       onFinality: {
         accessKey: '',
         secretKey: '',
+        workspaceId: '',
       },
     },
   },

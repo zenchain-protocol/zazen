@@ -32,6 +32,7 @@ describe('onRpcRequest', () => {
               onFinality: {
                 accessKey: 'fooAccessKey',
                 secretKey: 'fooSecretKey',
+                workspaceId: 'fooWorkspaceId',
               },
             },
           },
@@ -50,6 +51,7 @@ describe('onRpcRequest', () => {
             onFinality: {
               accessKey: 'fooAccessKey',
               secretKey: 'fooSecretKey',
+              workspaceId: 'fooWorkspaceId',
             },
           },
         },
@@ -71,6 +73,7 @@ describe('onRpcRequest', () => {
             onFinality: {
               accessKey: '',
               secretKey: '',
+              workspaceId: '',
             },
           },
         },
@@ -88,6 +91,7 @@ describe('onRpcRequest', () => {
               onFinality: {
                 accessKey: 'fooAccessKey',
                 secretKey: 'fooSecretKey',
+                workspaceId: 'fooWorkspaceId',
               },
             },
           },
@@ -106,6 +110,7 @@ describe('onRpcRequest', () => {
             onFinality: {
               accessKey: 'fooAccessKey',
               secretKey: 'fooSecretKey',
+              workspaceId: 'fooWorkspaceId',
             },
           },
         },
@@ -125,6 +130,7 @@ describe('onRpcRequest', () => {
               onFinality: {
                 accessKey: 'fooAccessKey',
                 secretKey: 'fooSecretKey',
+                workspaceId: 'fooWorkspaceId',
               },
             },
           },
@@ -147,6 +153,7 @@ describe('onRpcRequest', () => {
             onFinality: {
               accessKey: '',
               secretKey: '',
+              workspaceId: '',
             },
           },
         },

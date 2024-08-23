@@ -43,6 +43,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
             onFinality: {
               accessKey: params.staking.nodeCloudAccessKeys.onFinality.accessKey,
               secretKey: params.staking.nodeCloudAccessKeys.onFinality.secretKey,
+              workspaceId: params.staking.nodeCloudAccessKeys.onFinality.workspaceId,
             },
           },
         },
