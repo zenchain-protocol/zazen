@@ -29,6 +29,7 @@ type State = {
       onFinality: {
         accessKey: string;
         secretKey: string;
+        workspaceId: string;
       };
     };
   };
