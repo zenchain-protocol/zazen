@@ -27,8 +27,6 @@
     "start": "mm-snap watch",
     "test": "yarn test:e2e",
     "test:e2e": "jest",
-    "publish": "yarn publish --scope=@zenchain-protocol",
-    "publish:preview": "yarn publish --tag preview --scope=@zenchain-protocol",
     "lint:dependencies": "depcheck"
   },
   "devDependencies": {
