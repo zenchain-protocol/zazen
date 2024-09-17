@@ -34,8 +34,3 @@ jobs:
 
       - name: Run tests
         run: yarn test
-
-      - name: Publish to NPM
-        run: yarn publish --non-interactive
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

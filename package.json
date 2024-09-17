@@ -1,5 +1,5 @@
 {
-  "name": "@zenchain/zazen",
+  "name": "@zenchain-protocol/zazen",
   "version": "0.0.1",
   "description": "Zenchain snap for securely storing validator cloud access keys within Metamask.",
   "repository": {
@@ -18,7 +18,7 @@
     "build:clean": "yarn clean && yarn build",
     "clean": "rimraf \"dist\"",
     "lint": "yarn lint:eslint && yarn lint:misc --check && yarn lint:changelog && yarn lint:dependencies",
-    "lint:changelog": "yarn auto-changelog validate --tag-prefix @zenchain/zazen",
+    "lint:changelog": "yarn auto-changelog validate --tag-prefix zazen",
     "lint:ci": "yarn lint",
     "lint:eslint": "eslint . --cache",
     "lint:fix": "yarn lint:eslint --fix && yarn lint:misc --write",
@@ -26,8 +26,8 @@
     "start": "mm-snap watch",
     "test": "yarn test:e2e",
     "test:e2e": "jest",
-    "publish": "yarn npm publish --scope=@zenchain-protocol",
-    "publish:preview": "yarn npm publish --tag preview --scope=@zenchain-protocol",
+    "publish": "yarn publish --scope=@zenchain-protocol",
+    "publish:preview": "yarn publish --tag preview --scope=@zenchain-protocol",
     "lint:dependencies": "depcheck"
   },
   "devDependencies": {
