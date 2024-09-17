@@ -1,4 +1,4 @@
-# `@zenchain/zazen`
+# `@zenchain-protocol/zazen`
 
 This [Metamask snap](https://metamask.io/snaps/), Zazen, is intended to store validator cloud access keys in an encrypted, secure manner within Metamask. In the future, it may be used to store other types of data. This snap was forked from the [MetaMask manage-state example snap](https://github.com/MetaMask/snaps/tree/main/packages/examples/packages/manage-state) at [version 2.2.2](https://github.com/MetaMask/snaps/releases/tag/v39.0.0).
 
