@@ -6,4 +6,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/zenchain-protocol/zazen/
+[Unreleased]: git+https://github.com/zenchain-protocol/zazen/
