@@ -21,6 +21,9 @@
     "endowment:rpc": {
       "allowedOrigins": [
         "https://*.zenchain.io",
+        "http://localhost",
+        "http://localhost:8014",
+        "http://127.0.0.1",
         "npm:@zenchain-protocol/zazen"
       ]
     },
