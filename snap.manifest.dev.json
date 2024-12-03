@@ -7,7 +7,7 @@
     "url": "git+https://github.com/zenchain-protocol/zazen.git"
   },
   "source": {
-    "shasum": "mzr/twiFmjqwv0KmAKgwI9XVa7b0d3LeKn+wYIiKj3I=",
+    "shasum": "ukfoAI5mBNtf9fxeUV/X5CyXK+hFYjpaA7ULQVZtrN8=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",

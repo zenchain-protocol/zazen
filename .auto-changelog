@@ -1,0 +1,6 @@
+{
+  "output": "CHANGELOG.md",
+  "template": "default",
+  "unreleased": true,
+  "commitLimit": false
+}
