@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.6]
+
+### Uncategorized
+
+- Upgrade dependencies & fix changelog
+
 ## [0.0.5]
 
 ### Uncategorized
@@ -78,5 +84,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support JSX and Interactive UI in simulator ([#2409](git+https://github.com/zenchain-protocol/zazen/pull/2409))
 - Add `Container` and `Footer` components ([#2517](git+https://github.com/zenchain-protocol/zazen/pull/2517))
 
-[Unreleased]: git+https://github.com/zenchain-protocol/zazen/compare/v0.0.5...HEAD
+[Unreleased]: git+https://github.com/zenchain-protocol/zazen/compare/v0.0.6...HEAD
+[0.0.6]: git+https://github.com/zenchain-protocol/zazen/compare/v0.0.5...v0.0.6
 [0.0.5]: git+https://github.com/zenchain-protocol/zazen/releases/tag/v0.0.5

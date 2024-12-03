@@ -1,5 +1,5 @@
 {
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Zenchain snap for securely storing validator cloud access keys within Metamask.",
   "proposedName": "Zazen",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "git+https://github.com/zenchain-protocol/zazen.git"
   },
   "source": {
-    "shasum": "ukfoAI5mBNtf9fxeUV/X5CyXK+hFYjpaA7ULQVZtrN8=",
+    "shasum": "qFquENdgWP6N7pRTHMcLDx0Geyljy8WFMzXycHTs2+o=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
