@@ -1,4 +1,5 @@
-FROM node:lts
+ARG NODE_VERSION=22
+FROM node:${NODE_VERSION}-slim
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install
