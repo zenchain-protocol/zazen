@@ -2,6 +2,14 @@
 
 This [Metamask snap](https://metamask.io/snaps/), Zazen, is intended to store validator cloud access keys in an encrypted, secure manner within Metamask. In the future, it may be used to store other types of data. This snap was forked from the [MetaMask manage-state example snap](https://github.com/MetaMask/snaps/tree/main/packages/examples/packages/manage-state) at [version 2.2.2](https://github.com/MetaMask/snaps/releases/tag/v39.0.0).
 
+## ⚠️ Important Notice
+
+This software has **not been audited** or reviewed for security. It may contain **vulnerabilities** and is **not recommended** for use with real financial assets.
+
+**Use at your own risk.**
+
+The authors of this software are **not responsible for any loss, damage, or liability** resulting from its use.
+
 ## Snap manifest
 
 > **Note**: Using `snap_manageState` requires the `snap_manageState` permissions. Refer to [the documentation](https://docs.metamask.io/snaps/reference/rpc-api/#snap_managestate) for more information.
