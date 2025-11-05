@@ -60,6 +60,46 @@ describe('onRpcRequest', () => {
         },
       });
     });
+
+    it('does not set the state when the user cancels the confirmation', async () => {
+      const { request } = await installSnap();
+
+      const params = {
+        method: 'setState',
+        params: {
+          staking: {
+            nodeCloudAccessKeys: {
+              onFinality: {
+                accessKey: 'barAccessKey',
+                secretKey: 'barSecretKey',
+                workspaceId: 'barWorkspaceId',
+              },
+            },
+          },
+        },
+      };
+
+      const response = request(params);
+      const ui = await response.getInterface() as (SnapConfirmationInterface & SnapInterfaceActions);
+      await ui.cancel();
+      await response;
+
+      const state = await request({
+        method: 'getState',
+      });
+
+      expect(state).toRespondWith({
+        staking: {
+          nodeCloudAccessKeys: {
+            onFinality: {
+              accessKey: '',
+              secretKey: '',
+              workspaceId: '',
+            },
+          },
+        },
+      });
+    });
   });
 
   describe('getState', () => {
@@ -164,6 +204,51 @@ describe('onRpcRequest', () => {
               accessKey: '',
               secretKey: '',
               workspaceId: '',
+            },
+          },
+        },
+      });
+    });
+
+    it('does not clear the state when the user cancels the confirmation', async () => {
+      const { request } = await installSnap();
+
+      const setStateResponse = request({
+        method: 'setState',
+        params: {
+          staking: {
+            nodeCloudAccessKeys: {
+              onFinality: {
+                accessKey: 'bazAccessKey',
+                secretKey: 'bazSecretKey',
+                workspaceId: 'bazWorkspaceId',
+              },
+            },
+          },
+        },
+      });
+      const setStateUi = await setStateResponse.getInterface() as (SnapConfirmationInterface & SnapInterfaceActions);
+      await setStateUi.ok();
+      await setStateResponse;
+
+      const clearResponse = request({
+        method: 'clearState',
+      });
+      const clearUi = await clearResponse.getInterface() as (SnapConfirmationInterface & SnapInterfaceActions);
+      await clearUi.cancel();
+      await clearResponse;
+
+      const state = await request({
+        method: 'getState',
+      });
+
+      expect(state).toRespondWith({
+        staking: {
+          nodeCloudAccessKeys: {
+            onFinality: {
+              accessKey: 'bazAccessKey',
+              secretKey: 'bazSecretKey',
+              workspaceId: 'bazWorkspaceId',
             },
           },
         },
