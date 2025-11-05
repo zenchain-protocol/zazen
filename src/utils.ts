@@ -1,4 +1,5 @@
 import { ManageStateOperation } from '@metamask/snaps-sdk';
+import { Box, Text, Heading } from "@metamask/snaps-sdk/jsx";
 
 export type State = {
   staking: {
@@ -58,14 +59,28 @@ export async function getState(encrypted: boolean = true): Promise<State> {
  * @see https://docs.metamask.io/snaps/reference/rpc-api/#snap_managestate
  */
 export async function setState(newState: State, encrypted: boolean = true) {
-  await snap.request({
-    method: 'snap_manageState',
+  const result = await snap.request({
+    method:"snap_dialog",
     params: {
-      operation: ManageStateOperation.UpdateState,
-      newState,
-      encrypted,
-    },
+      type: "confirmation",
+      content:  (
+        <Box>
+          <Heading>Save your OnFinality keys</Heading>
+        <Text>The ZenChain Node Station app would like to save your OnFinality keys in your MetaMask wallet's encrypted storage. Your keys will remain on your own computer, protected by the security of your MetaMask wallet. Your keys will be used to authenticate with OnFinality, allowing the Node Station app to configure your node and tell you its status. Your keys are never sent to ZenChain or any third party.</Text>
+      </Box>
+  )
+    }
   });
+  if (result === true) {
+    await snap.request({
+      method: 'snap_manageState',
+      params: {
+        operation: ManageStateOperation.UpdateState,
+        newState,
+        encrypted,
+      },
+    });
+  }
 }
 
 /**
@@ -78,11 +93,25 @@ export async function setState(newState: State, encrypted: boolean = true) {
  * @see https://docs.metamask.io/snaps/reference/rpc-api/#snap_managestate
  */
 export async function clearState(encrypted: boolean = true) {
-  await snap.request({
-    method: 'snap_manageState',
+  const result = await snap.request({
+    method:"snap_dialog",
     params: {
-      operation: ManageStateOperation.ClearState,
-      encrypted,
-    },
-  });
+      type: "confirmation",
+      content:  (
+        <Box>
+          <Heading>Delete your OnFinality keys</Heading>
+        <Text>The ZenChain Node Station app would like to permanently delete your OnFinality keys from your MetaMask wallet's encrypted storage. Although your OnFinality keys are securely encrypted while in your wallet, we still recommend deleting them when they will no longer be used by the ZenChain Node Station app.</Text>
+        </Box>
+  )
+}
+});
+  if (result === true) {
+    await snap.request({
+      method: 'snap_manageState',
+      params: {
+        operation: ManageStateOperation.ClearState,
+        encrypted,
+      },
+    });
+  }
 }

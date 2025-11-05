@@ -24,7 +24,8 @@
         "npm:@zenchain-protocol/zazen"
       ]
     },
-    "snap_manageState": {}
+    "snap_manageState": {},
+    "snap_dialog": {}
   },
   "manifestVersion": "0.1"
 }
