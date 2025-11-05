@@ -3,5 +3,5 @@
     "baseUrl": "./",
     "jsx": "react-jsx",
     "jsxImportSource": "@metamask/snaps-sdk"
-  },
+  }
 }
