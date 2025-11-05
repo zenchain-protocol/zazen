@@ -1,5 +1,5 @@
 import { expect } from '@jest/globals';
-import { installSnap } from '@metamask/snaps-jest';
+import {installSnap, SnapConfirmationInterface, SnapInterfaceActions} from '@metamask/snaps-jest';
 
 describe('onRpcRequest', () => {
   it('throws an error if the requested method does not exist', async () => {
@@ -39,7 +39,10 @@ describe('onRpcRequest', () => {
         },
       };
 
-      expect(await request(params)).toRespondWith(true);
+      const response = request(params);
+      const ui = await response.getInterface() as (SnapConfirmationInterface & SnapInterfaceActions);
+      await ui.ok();
+      expect(await response).toRespondWith(true);
 
       const state = await request({
         method: 'getState',
@@ -98,7 +101,10 @@ describe('onRpcRequest', () => {
         },
       };
 
-      await request(setStateParams);
+      const setStateResponse = request(setStateParams);
+      const setStateUi = await setStateResponse.getInterface() as (SnapConfirmationInterface & SnapInterfaceActions);
+      await setStateUi.ok();
+      await setStateResponse;
 
       const response = await request({
         method: 'getState',
@@ -122,7 +128,7 @@ describe('onRpcRequest', () => {
     it('clears the state', async () => {
       const { request } = await installSnap();
 
-      await request({
+      const setStateResponse = request({
         method: 'setState',
         params: {
           staking: {
@@ -136,12 +142,16 @@ describe('onRpcRequest', () => {
           },
         },
       });
+      const setStateUi = await setStateResponse.getInterface() as (SnapConfirmationInterface & SnapInterfaceActions);
+      await setStateUi.ok();
+      await setStateResponse;
 
-      expect(
-        await request({
-          method: 'clearState',
-        }),
-      ).toRespondWith(true);
+      const clearResponse = request({
+        method: 'clearState',
+      });
+      const clearUi = await clearResponse.getInterface() as (SnapConfirmationInterface & SnapInterfaceActions);
+      await clearUi.ok();
+      expect(await clearResponse).toRespondWith(true);
 
       expect(
         await request({
