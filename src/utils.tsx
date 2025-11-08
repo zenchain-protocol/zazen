@@ -66,7 +66,7 @@ export async function setState(newState: State, encrypted: boolean = true) {
       content:  (
         <Box>
           <Heading>Save your OnFinality keys</Heading>
-        <Text>The ZenChain Node Station app would like to save your OnFinality keys in your MetaMask wallet's encrypted storage. Your keys will remain on your own computer, protected by the security of your MetaMask wallet. Your keys will be used to authenticate with OnFinality, allowing the Node Station app to configure your node and tell you its status. Your keys are never sent to ZenChain or any third party.</Text>
+        <Text>The ZenChain Node Station app would like to save your OnFinality keys in your MetaMask wallet's encrypted storage. Your keys will remain securely encrypted on your device, protected by the security of your MetaMask wallet. Your keys will be used to authenticate with OnFinality, allowing the Node Station app to configure your node and tell you its status. Your keys are never sent to ZenChain or any third party.</Text>
       </Box>
   )
     }
@@ -100,7 +100,7 @@ export async function clearState(encrypted: boolean = true) {
       content:  (
         <Box>
           <Heading>Delete your OnFinality keys</Heading>
-        <Text>The ZenChain Node Station app would like to permanently delete your OnFinality keys from your MetaMask wallet's encrypted storage. Although your OnFinality keys are securely encrypted while in your wallet, we still recommend deleting them when they will no longer be used by the ZenChain Node Station app.</Text>
+        <Text>The ZenChain Node Station app would like to permanently delete your OnFinality keys from your MetaMask wallet's encrypted storage. Although your OnFinality keys are securely encrypted in your wallet, we still recommend deleting them when they will no longer be used by the ZenChain Node Station app.</Text>
         </Box>
   )
 }
