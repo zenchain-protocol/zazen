@@ -1,5 +1,5 @@
 import { expect } from '@jest/globals';
-import { installSnap } from '@metamask/snaps-jest';
+import {installSnap, SnapConfirmationInterface, SnapInterfaceActions} from '@metamask/snaps-jest';
 
 describe('onRpcRequest', () => {
   it('throws an error if the requested method does not exist', async () => {
@@ -39,7 +39,10 @@ describe('onRpcRequest', () => {
         },
       };
 
-      expect(await request(params)).toRespondWith(true);
+      const response = request(params);
+      const ui = await response.getInterface() as (SnapConfirmationInterface & SnapInterfaceActions);
+      await ui.ok();
+      expect(await response).toRespondWith(true);
 
       const state = await request({
         method: 'getState',
@@ -52,6 +55,46 @@ describe('onRpcRequest', () => {
               accessKey: 'fooAccessKey',
               secretKey: 'fooSecretKey',
               workspaceId: 'fooWorkspaceId',
+            },
+          },
+        },
+      });
+    });
+
+    it('does not set the state when the user cancels the confirmation', async () => {
+      const { request } = await installSnap();
+
+      const params = {
+        method: 'setState',
+        params: {
+          staking: {
+            nodeCloudAccessKeys: {
+              onFinality: {
+                accessKey: 'barAccessKey',
+                secretKey: 'barSecretKey',
+                workspaceId: 'barWorkspaceId',
+              },
+            },
+          },
+        },
+      };
+
+      const response = request(params);
+      const ui = await response.getInterface() as (SnapConfirmationInterface & SnapInterfaceActions);
+      await ui.cancel();
+      await response;
+
+      const state = await request({
+        method: 'getState',
+      });
+
+      expect(state).toRespondWith({
+        staking: {
+          nodeCloudAccessKeys: {
+            onFinality: {
+              accessKey: '',
+              secretKey: '',
+              workspaceId: '',
             },
           },
         },
@@ -98,7 +141,10 @@ describe('onRpcRequest', () => {
         },
       };
 
-      await request(setStateParams);
+      const setStateResponse = request(setStateParams);
+      const setStateUi = await setStateResponse.getInterface() as (SnapConfirmationInterface & SnapInterfaceActions);
+      await setStateUi.ok();
+      await setStateResponse;
 
       const response = await request({
         method: 'getState',
@@ -122,7 +168,7 @@ describe('onRpcRequest', () => {
     it('clears the state', async () => {
       const { request } = await installSnap();
 
-      await request({
+      const setStateResponse = request({
         method: 'setState',
         params: {
           staking: {
@@ -136,12 +182,16 @@ describe('onRpcRequest', () => {
           },
         },
       });
+      const setStateUi = await setStateResponse.getInterface() as (SnapConfirmationInterface & SnapInterfaceActions);
+      await setStateUi.ok();
+      await setStateResponse;
 
-      expect(
-        await request({
-          method: 'clearState',
-        }),
-      ).toRespondWith(true);
+      const clearResponse = request({
+        method: 'clearState',
+      });
+      const clearUi = await clearResponse.getInterface() as (SnapConfirmationInterface & SnapInterfaceActions);
+      await clearUi.ok();
+      expect(await clearResponse).toRespondWith(true);
 
       expect(
         await request({
@@ -154,6 +204,51 @@ describe('onRpcRequest', () => {
               accessKey: '',
               secretKey: '',
               workspaceId: '',
+            },
+          },
+        },
+      });
+    });
+
+    it('does not clear the state when the user cancels the confirmation', async () => {
+      const { request } = await installSnap();
+
+      const setStateResponse = request({
+        method: 'setState',
+        params: {
+          staking: {
+            nodeCloudAccessKeys: {
+              onFinality: {
+                accessKey: 'bazAccessKey',
+                secretKey: 'bazSecretKey',
+                workspaceId: 'bazWorkspaceId',
+              },
+            },
+          },
+        },
+      });
+      const setStateUi = await setStateResponse.getInterface() as (SnapConfirmationInterface & SnapInterfaceActions);
+      await setStateUi.ok();
+      await setStateResponse;
+
+      const clearResponse = request({
+        method: 'clearState',
+      });
+      const clearUi = await clearResponse.getInterface() as (SnapConfirmationInterface & SnapInterfaceActions);
+      await clearUi.cancel();
+      await clearResponse;
+
+      const state = await request({
+        method: 'getState',
+      });
+
+      expect(state).toRespondWith({
+        staking: {
+          nodeCloudAccessKeys: {
+            onFinality: {
+              accessKey: 'bazAccessKey',
+              secretKey: 'bazSecretKey',
+              workspaceId: 'bazWorkspaceId',
             },
           },
         },

@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "baseUrl": "./"
-  },
-  "include": ["src", "snap.config.ts"]
+    "baseUrl": "./",
+    "jsx": "react-jsx",
+    "jsxImportSource": "@metamask/snaps-sdk"
+  }
 }
