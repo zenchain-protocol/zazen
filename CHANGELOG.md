@@ -11,6 +11,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Uncategorized
 
+- Update dependencies in `yarn.lock` to latest versions
+- Adjusted wording of dialog messages
+- Update CI workflow to use Node.js 22
+- Update dependencies and version for Zazen Snap to 0.0.7
+- Add tests for cancel behavior in confirmation dialogs in Zazen Snap
+- Add confirmation dialogs for state management tests in Zazen Snap
+- Update tsconfig to support React JSX
+- WIP: Add confirmation dialogs for state management actions in Zazen Snap
+- Fix [Q-01] Zazen Snap - use principle of least privilege for allowed origins
+- Add disclaimer
+- Tie to Node.js v22
+- Fix linter error
+- Increment version to latest
+- Upgrade dependencies & fix changelog
+- Limit allowedOrigins for better security in production
+- Fix linting failures
+- npm pkg fix
+- Add allowed origins restriction
+- Increment version to latest
+- Fix publish commands
+- Fix icon & its publishing
+- Fix repository name
+- Fix so manual publishing works
+- Publsh to NPM instead of deploy to Vercel
+- Add vercel configuration
+- Add NPM details
+- Fix icon & increment manifest version
+- Fix readme
+- Add workspace ID
+- Fix icon
+- Add Dockerfile & local running instructions
+- Fix linting failures
+- Update code and README for Zenchain use case
+- Add fork release link to version reference
+- Use SVG icon
+- Fix version number
+- Add icon
+- Remove unused dependencies
+- Fix changelog validation
+- Fix Node version
+- Fix ci
+- Add continuous integration
+- Fix linting
+- Fix type errors
+- Initialize zazen as fork
 - Adjusted wording of dialog messages
 - Update CI workflow to use Node.js 22
 - Update dependencies and version for Zazen Snap to 0.0.7
