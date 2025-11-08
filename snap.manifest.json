@@ -7,7 +7,7 @@
     "url": "git+https://github.com/zenchain-protocol/zazen.git"
   },
   "source": {
-    "shasum": "Z+J9qc1xSoPkD1jEIS0oUtbt2iDWeC8+92iCl/ZFPrY=",
+    "shasum": "JfUd+JRXe9vwdo8nK7zXNvGqj5boaeWOKWpcJiEo7VE=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -27,5 +27,6 @@
     "snap_manageState": {},
     "snap_dialog": {}
   },
+  "platformVersion": "10.1.0",
   "manifestVersion": "0.1"
 }
